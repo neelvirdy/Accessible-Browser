@@ -5,7 +5,7 @@ var parent = $('body');
 var options = filterOptions($(parent).children());
 var branch = [];
 var index = 0;
-var prevIndex = 0; // must start as anything non-zero
+var prevIndex = 0;
 
 $(document).ready(function() {
 	$(document).keyup(function(event){
@@ -26,21 +26,25 @@ $(document).ready(function() {
 			// reset options array
 			options = filterOptions($(parent).children());
 
+			var elementType = $(parent).prop('tagName');
+			if(elementType == 'INPUT')
+            	$(parent).focus();
+            else if(elementType == 'A')
+            	window.location.href = $(parent).attr("href");
+
             while(options.length == 1){ // skip through cycles where there is only one option
             	parent = $(parent).children()[0];
             	options = filterOptions($(parent).children());
+            	elementType = $(parent).prop('tagName');
+				if(elementType == 'INPUT')
+	            	$(parent).focus();
+            	else if(elementType == 'A')
+	            	window.location.href = $(parent).attr("href");
             }
 
             if(options.length == 0){ // act when reaching the end of the branch
-            	var elementType = $(parent).prop('tagName');
-            	if(elementType == 'INPUT')
-            		$(parent).focus();
-            	else if(elementType == 'A')
-            		window.location.href = $(parent).attr("href");
-            	else{
-            		parent = $('body');
-            		options = filterOptions($(parent).children());
-            	}
+            	parent = $('body');
+            	options = filterOptions($(parent).children());
 			}
 
 			// reset cycling to first option
