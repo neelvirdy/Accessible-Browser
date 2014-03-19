@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+
+  "name": "Symba",
+  "description": "Chrome extension that provides full browser control and content consumption abilities through just a single click of a button.",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+
+  ],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "css": ["style.css"],
+      "js": ["jquery-1.11.0.min.js", "content.js"]
+    }
+  ],
+  "web_accessible_resources": [
+      "images/*"
+  ]
+
+}
