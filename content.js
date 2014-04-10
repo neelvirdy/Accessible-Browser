@@ -1,12 +1,18 @@
 var USER_SPEED = 1000;
-var OPTIONS_FILTER = ['HEADER', 'FOOTER', 'DIV', 'A', 'UL', 'LI', 'SECTION', 'TABLE', 'TR', 'TD', 'THEAD', 'TBODY', 'IMG', 'BUTTON', 'INPUT'];
+var OPTIONS_FILTER = ['HEADER', 'FOOTER', 'DIV', 'A', 'UL', 'LI', 'SECTION', 'TABLE', 'TR', 'TD', 'THEAD', 'TBODY', 'IMG', 'BUTTON', 'INPUT', 'P'];
 
-var sidebar_html = '<div id="symba-sidebar">';
-sidebar_html += '<ul id="sidebar-button-list">';
-sidebar_html += '<li><button id="some-button"></li>';
-sidebar_html += '</ul>';
-sidebar_html += '</div>';
-
+var sidebar_html = ['<div id="symba_navigation">',
+		    '<ul>',
+		'<li><img src="images/up.jpg" alt="Up" height="50" width="50"></li>',
+		'<li><img src="images/home.jpg" alt="Home" height="50" width="50"></li>',
+		'<li><img src="images/left.jpg" alt="Left" height="50" width="50"></li>',
+		'<li><img src="images/right.jpg" alt="Right" height="50" width="50"></li>',
+		'<li><img src="images/switch.jpg" alt="Switch" height="50" width="50"></li>',
+		'<li><img src="images/bookmarks.jpg" alt="Bookmark" height="50" width="50"></li>',
+		'<li><img src="images/newtab.jpg" alt="New Tab" height="50" width="50"></li>',
+		'<li><img src="images/pause.jpg" alt="Pause" height="50" width="50"></li>',
+	'</ul>',
+'</div>'].join('\n');
 
 $('body').html(sidebar_html + '<div id="symba-page-content">' + $('body').html()) + '</div>';
 
@@ -17,6 +23,10 @@ var index = 0;
 var prevIndex = 0;
 
 $(document).ready(function() {
+	/*$('#symba_navigation').animate({
+		marginLeft: '15%'
+	}, 300);*/
+
 	$(document).keyup(function(event){
         if(event.keyCode == 71){
 
