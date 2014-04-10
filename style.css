@@ -1,11 +1,17 @@
 .selected {
-	-webkit-box-shadow:0 0 20px yellow; 
-	-moz-box-shadow: 0 0 20px yellow;
-	box-shadow:0 0 20px yellow;
+	-webkit-box-shadow: 0 0 40px orange; 
+	-moz-box-shadow: 0 0 40px orange;
+	box-shadow: 0 0 40px orange;
+	-webkit-box-shadow: inset 0 0 40px orange; 
+	-moz-box-shadow: inset 0 0 40px orange;
+	box-shadow: inset 0 0 40px orange;
 }
 
 .options {
-	-webkit-box-shadow:0 0 10px blue; 
-	-moz-box-shadow: 0 0 10px blue;  
-	box-shadow:0 0 10px blue;
+	-webkit-box-shadow: inset 0 0 30px blue; 
+	-moz-box-shadow: inset 0 0 30px blue;  
+	box-shadow: inset 0 0 30px blue;
+	-webkit-box-shadow: 0 0 30px blue; 
+	-moz-box-shadow: 0 0 30px blue;  
+	box-shadow: 0 0 30px blue;
 }
