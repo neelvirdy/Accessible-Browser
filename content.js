@@ -1,14 +1,23 @@
+console.log("SYMba loaded.");
+
 var USER_SPEED = 1000;
 var OPTIONS_FILTER = ['HEADER', 'FOOTER', 'DIV', 'A', 'UL', 'LI', 'SECTION', 'TABLE', 'TR', 'TD', 'THEAD', 'TBODY', 'IMG', 'BUTTON', 'INPUT', 'P'];
 
-var sidebar_html = '<div id="symba-sidebar">';
-sidebar_html += '<ul id="sidebar-button-list">';
-sidebar_html += '<li><button id="some-button"></li>';
-sidebar_html += '</ul>';
-sidebar_html += '</div>';
+var extension_url = chrome.extension.getURL('');
+var sidebar_html = ['<div id="symba-navigation">',
+		    '<ul>',
+		'<li><img src="' + extension_url + 'images/up.jpg" alt="Up" height="50" width="50"></li>',
+		'<li><img src="' + extension_url + 'images/home.jpg" alt="Home" height="50" width="50"></li>',
+		'<li><img src="' + extension_url + 'images/left.jpg" alt="Left" height="50" width="50"></li>',
+		'<li><img src="' + extension_url + 'images/right.jpg" alt="Right" height="50" width="50"></li>',
+		'<li><img src="' + extension_url + 'images/switch.jpg" alt="Switch" height="50" width="50"></li>',
+		'<li><img src="' + extension_url + 'images/bookmarks.jpg" alt="Bookmark" height="50" width="50"></li>',
+		'<li><img src="' + extension_url + 'images/newtab.jpg" alt="New Tab" height="50" width="50"></li>',
+		'<li><img src="' + extension_url + 'images/pause.jpg" alt="Pause" height="50" width="50"></li>',
+	'</ul>',
+'</div>'].join('\n');
 
-
-$('body').html(sidebar_html + '<div id="symba-page-content">' + $('body').html()) + '</div>';
+$('body').html(sidebar_html + $('body').html());
 
 var parent = $('body');
 var options = filterOptions($(parent).children());
@@ -17,6 +26,9 @@ var index = 0;
 var prevIndex = 0;
 
 $(document).ready(function() {
+	/*$('#symba_navigation').animate({
+		marginLeft: '15%'
+	}, 300);*/
 	$(document).keyup(function(event){
         if(event.keyCode == 71){
 
@@ -59,28 +71,15 @@ $(document).ready(function() {
 });
 
 function cycleContent(){
-
-    for(var i = 0; i < options.length; i++){
-		$('*').removeClass("options");
-		$('*').removeClass("selected");
-	}
+	
+	$('*').removeClass("options");
+	$('*').removeClass("selected");
 
 	for(var i = 0; i < options.length; i++)
 		$(options[i]).addClass("options");
 
 	$(options[index]).removeClass("options");
 	$(options[index]).addClass("selected");
-
-	/*
-
-	if(prevIndex != index){
-		$(options[prevIndex]).removeClass("selected");
-		$(options[prevIndex]).addClass("options");
-	}
-	$(options[index]).removeClass("options");
-	$(options[index]).addClass("selected");
-
-	*/
 
 	console.log(options[index]);
 

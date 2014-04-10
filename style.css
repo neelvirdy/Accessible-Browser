@@ -15,3 +15,24 @@
 	-moz-box-shadow: 0 0 30px blue;  
 	box-shadow: 0 0 30px blue;
 }
+
+#symba-navigation li{
+	list-style: none;
+}
+
+#symba-navigation {
+	background-color: rgba(216,216,216,0.5);
+	width: 95px;
+	height: 500px;
+	border-bottom-right-radius: 15px;
+	border-top-right-radius: 15px;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 60px;
+	position: fixed;
+	z-index:100000000;
+}
+
+#symba-navigation ul{
+	padding: 10px 15px;
+}
