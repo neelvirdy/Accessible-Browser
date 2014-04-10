@@ -9,3 +9,19 @@
 	-moz-box-shadow: 0 0 10px blue;  
 	box-shadow:0 0 10px blue;
 }
+
+#navigation li{
+	list-style: none;
+}
+
+#navigation {
+	background-color: rgba(216,216,216,0.5);
+	width: 95px;
+	border-bottom-right-radius: 15px;
+	border-top-right-radius: 15px;
+}
+
+#navigation ul{
+	padding: 10px 15px;
+}
+
