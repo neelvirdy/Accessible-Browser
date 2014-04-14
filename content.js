@@ -17,9 +17,7 @@ var sidebar_html = ['<div class="symba" id="symba-navigation">',
 	'</ul>',
 '</div>'].join('\n');
 
-console.log(document.body.outerHTML);
 document.body.outerHTML = sidebar_html + document.body.outerHTML;
-//$('html').html($('head').html() + sidebar_html + $('body').outerHTML);
 
 var parent = $('body');
 var options = filterOptions($(parent).children());
@@ -27,11 +25,21 @@ var branch = [];
 var index = 0;
 var prevIndex = 0;
 var paused = false;
+var bypass = false;
 
 $('#symba-up-button').click(function(event){
-	parent = $(options[options.length-1]).parent();
+	branch.pop();
+	branch.pop();
+	branch.pop();
+	if(branch.length > 0)
+		parent = branch.pop();
+	else
+		parent = $('body');
 	options = filterOptions($(parent).children());
+	console.log(options);
 	index = 0;
+	prevIndex = 0;
+	bypass = true;
 });
 
 $('#symba-home-button').click(function(event){
@@ -84,26 +92,34 @@ $(document).ready(function() {
             	else if(elementType == 'A')
 		           	window.location.href = $(parent).attr("href");
 
-            	if(options.length == 0){ // act when reaching the end of the branch
-	            	parent = $('body');
-            		options = filterOptions($(parent).children());
-            		setTimeout(function(){zoom.out()}, 100);
-				}else{
-					// set new parent
-            		parent = options[prevIndex];
-            		zoom.to({element: options[prevIndex]});
-					// reset options array
-					options = filterOptions($(parent).children());
-				}
+		        if(!bypass){
 
-            	while(options.length == 1){ // skip through cycles where there is only one option
-	            	parent = options[0];
-            		zoom.to({element: parent});
-            		options = filterOptions($(parent).children());
+            		if(options.length == 0){ // act when reaching the end of the branch
+	            		console.log("0 case");
+	            		parent = $('body');
+            			options = filterOptions($(parent).children());
+            			setTimeout(function(){zoom.out()}, 100);
+					}else{
+						// set new parent
+            			parent = options[prevIndex];
+            			//zoom.to({element: options[prevIndex]});
+						// reset options array
+						options = filterOptions($(parent).children());
+					}
+
+            		while(options.length == 1){ // skip through cycles where there is only one option
+	            		console.log("1 case");
+	            		parent = options[0];
+            			//zoom.to({element: parent});
+            			options = filterOptions($(parent).children());
+            		}
+
             	}
 
 				// reset cycling to first option
             	index = 0;
+
+            	bypass = false;
 
         	}
         }
@@ -145,6 +161,8 @@ function filterOptions(options){
 	var filteredOptions = [];
 	var elementType;
 	var containsSymba = false;
+	if(options.length == 0)
+		return options;
 	for(var i = 0; i < options.length; i++){
 		var option_class = $(options[i]).attr('class');
 		if(typeof option_class !== 'undefined' && option_class.indexOf('symba') != -1)
@@ -152,8 +170,8 @@ function filterOptions(options){
 		if(isOption(options[i]))
 			filteredOptions.push(options[i]);
 	}
-	if(!containsSymba);
-		//filteredOptions.unshift($('#symba-navigation'));
+	if(!containsSymba && !(typeof $(parent).attr('class') !== 'undefined' && $(parent).attr('class').indexOf('symba') != -1))
+		filteredOptions.unshift($('#symba-navigation'));
 	return filteredOptions;
 }
 
@@ -169,12 +187,6 @@ function isOption(option){
 				return true;
 	}
 }
-
-
-
-
-
-
 
 
 /*!
