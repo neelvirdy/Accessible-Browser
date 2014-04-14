@@ -3,104 +3,155 @@ console.log("SYMba loaded.");
 var USER_SPEED = 1000;
 var OPTIONS_FILTER = ['HEADER', 'FOOTER', 'DIV', 'A', 'UL', 'LI', 'SECTION', 'TABLE', 'TR', 'TD', 'THEAD', 'TBODY', 'IMG', 'BUTTON', 'INPUT', 'P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
 var extension_url = chrome.extension.getURL('');
-var sidebar_html = ['<div id="symba-navigation">',
-		    '<ul>',
-		'<li><input type="image" src="' + extension_url + 'images/up-level.png" alt="Up" height="32" width="32"></li>',
-		'<li><input type="image" src="' + extension_url + 'images/home.png" alt="Home" height="32" width="32"></li>',
-		'<li><input type="image" src="' + extension_url + 'images/back.png" alt="Back" height="32" width="32"></li>',
-		'<li><input type="image" src="' + extension_url + 'images/forward.png" alt="Forward" height="32" width="32"></li>',
-		'<li><input type="image" src="' + extension_url + 'images/switch-tab.png" alt="Switch Tab" height="32" width="32"></li>',
-		'<li><input type="image" src="' + extension_url + 'images/bookmark.png" alt="Bookmark" height="32" width="32"></li>',
-		'<li><input type="image" src="' + extension_url + 'images/bookmarks.png" alt="Bookmarks" height="32" width="32"></li>',
-		'<li><input type="image" src="' + extension_url + 'images/new-tab.png" alt="New Tab" height="32" width="32"></li>',
-		'<li><input type="image" src="' + extension_url + 'images/pause.png" alt="Pause" height="32" width="32"></li>',
+var sidebar_html = ['<div class="symba" id="symba-navigation">',
+		    '<ul class="symba" id="symba-ul">',
+		'<li class="symba"><input type="image" src="' + extension_url + 'images/up-level.png" alt="Up" id="symba-up-button" class="symba" height="32" width="32"></li>',
+		'<li class="symba"><input type="image" src="' + extension_url + 'images/home.png" alt="Home" id="symba-home-button" class="symba" height="32" width="32"></li>',
+		'<li class="symba"><input type="image" src="' + extension_url + 'images/back.png" alt="Back" id="symba-back-button" class="symba" height="32" width="32"></li>',
+		'<li class="symba"><input type="image" src="' + extension_url + 'images/forward.png" alt="Forward" id="symba-forward-button" class="symba" height="32" width="32"></li>',
+		'<li class="symba"><input type="image" src="' + extension_url + 'images/switch-tab.png" alt="Switch Tab" id="symba-switch-tab-button" class="symba" height="32" width="32"></li>',
+		'<li class="symba"><input type="image" src="' + extension_url + 'images/bookmark.png" alt="Bookmark" id="symba-bookmark-button" class="symba" height="32" width="32"></li>',
+		'<li class="symba"><input type="image" src="' + extension_url + 'images/bookmarks.png" alt="Bookmarks" id="symba-bookmarks-button" class="symba" height="32" width="32"></li>',
+		'<li class="symba"><input type="image" src="' + extension_url + 'images/new-tab.png" alt="New Tab" id="symba-new-tab-button" class="symba" height="32" width="32"></li>',
+		'<li class="symba"><input type="image" src="' + extension_url + 'images/pause.png" alt="Pause" id="symba-pause-button" class="symba" height="32" width="32"></li>',
 	'</ul>',
 '</div>'].join('\n');
 
-//console.log($('body').html());
-//$('body').html(sidebar_html + $('body').html());
-//console.log($('body').html());
+console.log(document.body.outerHTML);
+document.body.outerHTML = sidebar_html + document.body.outerHTML;
+//$('html').html($('head').html() + sidebar_html + $('body').outerHTML);
 
 var parent = $('body');
 var options = filterOptions($(parent).children());
 var branch = [];
 var index = 0;
 var prevIndex = 0;
+var paused = false;
+
+$('#symba-up-button').click(function(event){
+	parent = $(options[options.length-1]).parent();
+	options = filterOptions($(parent).children());
+	index = 0;
+});
+
+$('#symba-home-button').click(function(event){
+
+});
+
+$('#symba-back-button').click(function(event){
+	window.history.back();
+});
+
+$('#symba-forward-button').click(function(event){
+	window.history.forward();
+});
+
+$('#symba-switch-tab-button').click(function(event){
+	
+});
+
+$('#symba-bookmark-button').click(function(event){
+	
+});
+
+$('#symba-bookmarks-button').click(function(event){
+	
+});
+
+$('#symba-new-tab-button').click(function(event){
+	
+});
+
+$('#symba-pause-button').click(function(event){
+	paused = true;
+});
 
 $(document).ready(function() {
 	$(document).keyup(function(event){
         if(event.keyCode == 71){
 
-        	branch.push(parent);
-        	console.log(branch);
+        	if(paused)
+        		paused = false;
+        	else{
 
-        	elementType = $(parent).prop('tagName');
-			if(elementType == 'INPUT')
-	           	$(parent).focus();
-            else if(elementType == 'A')
-	           	window.location.href = $(parent).attr("href");
+        		branch.push(parent);
+        		console.log(branch);
 
-            if(options.length == 0){ // act when reaching the end of the branch
-            	parent = $('body');
-            	zoom.out();
-            	options = filterOptions($(parent).children());
-			}else{
-				// set new parent
-            	parent = options[prevIndex];
-            	if(zoom.level == 1)
+        		elementType = $(parent).prop('tagName');
+				if(elementType == 'INPUT'){
+		           	$(parent).click();
+		        }
+            	else if(elementType == 'A')
+		           	window.location.href = $(parent).attr("href");
+
+            	if(options.length == 0){ // act when reaching the end of the branch
+	            	parent = $('body');
+            		options = filterOptions($(parent).children());
+            		setTimeout(function(){zoom.out()}, 100);
+				}else{
+					// set new parent
+            		parent = options[prevIndex];
+            		zoom.to({element: options[prevIndex]});
+					// reset options array
+					options = filterOptions($(parent).children());
+				}
+
+            	while(options.length == 1){ // skip through cycles where there is only one option
+	            	parent = options[0];
             		zoom.to({element: parent});
-				// reset options array
-				options = filterOptions($(parent).children());
-			}
+            		options = filterOptions($(parent).children());
+            	}
 
-            while(options.length == 1){ // skip through cycles where there is only one option
-            	parent = options[0];
-            	options = filterOptions($(parent).children());
-            }
+				// reset cycling to first option
+            	index = 0;
 
-			// reset cycling to first option
-            index = 0;
-
+        	}
         }
     });
 	setInterval(function(){cycleContent()}, USER_SPEED);
 });
-		
 
 function cycleContent(){
 
+	if(!paused){
+    	options = filterOptions($(parent).children());
 
-	console.log("Parent: " + parent);
-    options = filterOptions($(parent).children());
+		$('*').removeClass("parent");
+		$('*').removeClass("options");
+		$('*').removeClass("selected");
 
-	
-	$('*').removeClass("parent");
-	$('*').removeClass("options");
-	$('*').removeClass("selected");
+		$(parent).addClass("parent");
 
-	$(parent).addClass("parent");
+		for(var i = 0; i < options.length; i++)
+			$(options[i]).addClass("options");
 
-	for(var i = 0; i < options.length; i++)
-		$(options[i]).addClass("options");
+		$(options[index]).removeClass("options");
+		$(options[index]).addClass("selected");
 
-	$(options[index]).removeClass("options");
-	$(options[index]).addClass("selected");
+		console.log(options[index]);
 
-	console.log(options[index]);
+		prevIndex = index;
+		index++;
+		if(index == options.length)
+			index = 0;
 
-	prevIndex = index;
-	index++;
-	if(index == options.length)
-		index = 0;
+		$('body').scrollTo(option[index]);
+	}
 }
 
 function filterOptions(options){
 	var filteredOptions = [];
 	var elementType;
+	var containsSymba = false;
 	for(var i = 0; i < options.length; i++){
+		var option_class = $(options[i]).attr('class');
+		if(typeof option_class !== 'undefined' && option_class.indexOf('symba') != -1)
+			containsSymba = true;
 		if(isOption(options[i]))
 			filteredOptions.push(options[i]);
 	}
+	if(!containsSymba);
+		//filteredOptions.unshift($('#symba-navigation'));
 	return filteredOptions;
 }
 
@@ -160,19 +211,11 @@ var zoom = (function(){
 		document.body.style.WebkitTransition = '-webkit-transform 0.8s ease';
 	}
 
-	// Zoom out if the user hits escape
 	document.addEventListener( 'keyup', function( event ) {
-		if( level !== 1 && event.keyCode === 27 ) {
-			zoom.out();
-		}
-	} );
-
-	// Monitor mouse movement for panning
-	document.addEventListener( 'mousemove', function( event ) {
-		if( level !== 1 ) {
-			mouseX = event.clientX;
-			mouseY = event.clientY;
-		}
+		var element = options[index];
+		var position = element.getBoundingClientRect();
+		mouseX = position.left;
+		mouseY = position.top;
 	} );
 
 	/**
@@ -278,7 +321,7 @@ var zoom = (function(){
 			// Due to an implementation limitation we can't zoom in
 			// to another element without zooming out first
 			if( level !== 1 ) {
-				zoom.out();
+				//zoom.out();
 			}
 			else {
 				options.x = options.x || 0;

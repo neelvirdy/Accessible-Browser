@@ -1,19 +1,31 @@
 .parent {
-	-webkit-box-shadow: 0 0 40px orange, inset 0 0 40px rgb(20, 250, 20);
-	-moz-box-shadow: 0 0 40px orange, inset 0 0 40px rgb(20, 250, 20);
-	box-shadow: 0 0 40px orange, inset 0 0 40px rgb(20, 250, 20);
+	-webkit-box-shadow: 0 0 20px orange, inset 0 0 20px rgb(20, 250, 20) !important;
+	-moz-box-shadow: 0 0 20px orange, inset 0 0 20px rgb(20, 250, 20) !important;
+	box-shadow: 0 0 20px orange, inset 0 0 20px rgb(20, 250, 20) !important;
+}
+
+.parent td {
+	background-color:rgba(20, 250, 20, 0.1);
 }
 
 .selected {
-	-webkit-box-shadow: 0 0 40px orange, inset 0 0 40px orange;
-	-moz-box-shadow: 0 0 40px orange, inset 0 0 40px orange;
-	box-shadow: 0 0 40px orange, inset 0 0 40px orange;
+	-webkit-box-shadow: 0 0 20px orange, inset 0 0 20px orange !important;
+	-moz-box-shadow: 0 0 20px orange, inset 0 0 20px orange !important;
+	box-shadow: 0 0 20px orange, inset 0 0 20px orange !important;
+}
+
+.selected td {
+	background-color:rgba(255, 245, 0, 0.1);
 }
 
 .options {
-	-webkit-box-shadow: 0 0 30px blue, inset 0 0 30px blue;
-	-moz-box-shadow: 0 0 30px blue, inset 0 0 30px blue;
-	box-shadow: 0 0 30px blue, inset 0 0 30px blue;
+	-webkit-box-shadow: 0 0 20px blue, inset 0 0 20px blue !important;
+	-moz-box-shadow: 0 0 20px blue, inset 0 0 20px blue !important;
+	box-shadow: 0 0 20px blue, inset 0 0 20px blue !important;
+}
+
+.options td {
+	background-color:rgba(0, 0, 255, 0.1);
 }
 
 #symba-navigation li{
