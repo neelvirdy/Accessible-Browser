@@ -135,7 +135,9 @@ function cycleContent(){
 		if(index == options.length)
 			index = 0;
 
-		$('body').scrollTo(option[index]);
+		/*$('body').animate({
+        	scrollTop: $(options[prevIndex]).offset().top - $(options[index]).offset().top
+    	}, 200);*/
 	}
 }
 
