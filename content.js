@@ -40,10 +40,11 @@ $('#symba-up-button').click(function(event){
 	index = 0;
 	prevIndex = 0;
 	bypass = true;
+	//zoom.out();
 });
 
 $('#symba-home-button').click(function(event){
-
+	window.open("https://www.google.com", '_self');
 });
 
 $('#symba-back-button').click(function(event){
@@ -67,7 +68,7 @@ $('#symba-bookmarks-button').click(function(event){
 });
 
 $('#symba-new-tab-button').click(function(event){
-	
+	window.open("https://www.google.com", '_newtab');
 });
 
 $('#symba-pause-button').click(function(event){
@@ -95,10 +96,9 @@ $(document).ready(function() {
 		        if(!bypass){
 
             		if(options.length == 0){ // act when reaching the end of the branch
-	            		console.log("0 case");
 	            		parent = $('body');
             			options = filterOptions($(parent).children());
-            			setTimeout(function(){zoom.out()}, 100);
+            			//setTimeout(function(){zoom.out()}, 100);
 					}else{
 						// set new parent
             			parent = options[prevIndex];
@@ -107,9 +107,8 @@ $(document).ready(function() {
 						options = filterOptions($(parent).children());
 					}
 
-            		while(options.length == 1){ // skip through cycles where there is only one option
-	            		console.log("1 case");
-	            		parent = options[0];
+            		while(options.length == 1 || options.length == 2 & $.inArray($('#symba-navigation'), options)){ // skip through cycles where there is only one option
+	            		parent = options[options.length - 1];
             			//zoom.to({element: parent});
             			options = filterOptions($(parent).children());
             		}
@@ -177,7 +176,9 @@ function filterOptions(options){
 
 function isOption(option){
 	var elementType = $(option).prop('tagName');
-	if($.inArray(elementType, OPTIONS_FILTER) != -1 && $(option).attr("display") != "none" && !(elementType == 'DIV' && !$.trim($(option).html()))) {
+	if($(option).css('display') == 'none' || $(option).attr('type') == 'hidden')
+		return false;
+	else if($.inArray(elementType, OPTIONS_FILTER) != -1 && !(elementType == 'DIV' && !$.trim($(option).html()))) {
 		return true;
 	}
 	else{
