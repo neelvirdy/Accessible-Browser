@@ -26,9 +26,14 @@ var paused = false;
 var bypass = false;
 
 $('#symba-up-button').click(function(event){
-	branch.pop();
-	branch.pop();
-	branch.pop();
+	upLevel(4);
+	//zoom.out();
+});
+
+function upLevel(count){
+	for(var i = 0; i < count-1; i++){	
+		branch.pop();
+	}
 	if(branch.length > 0)
 		parent = branch.pop();
 	else
@@ -37,9 +42,8 @@ $('#symba-up-button').click(function(event){
 	console.log(options);
 	index = 0;
 	prevIndex = 0;
-	bypass = true;
-	//zoom.out();
-});
+//	bypass = true;
+}
 
 $('#symba-home-button').click(function(event){
 	window.open("https://www.google.com", '_self');
@@ -54,6 +58,29 @@ $('#symba-forward-button').click(function(event){
 });
 
 $('#symba-switch-tab-button').click(function(event){
+	/*// Getting a list of tabs of the current window.
+	chrome.windows.getLastFocused(
+	 // Without this, window.tabs is not populated.
+ 	{populate: true},
+ 	function (window)
+ 	{
+  	var foundSelected = false;
+  	for (var i = 0; i < window.tabs.length; i++)
+  	{
+   	// Finding the selected tab.
+   	if (window.tabs[i].active)
+   	{
+    		foundSelected = true;
+   	}
+   	// Finding the next tab.
+   	else if (foundSelected)
+   	{
+    	// Selecting the next tab.
+    		chrome.tabs.update(window.tabs[i].id, {active: true});
+    		return;
+   	}
+  	}
+ 	});*/
 	
 });
 
@@ -65,10 +92,12 @@ $('#symba-pause-button').click(function(event){
 	paused = true;
 });
 
+var timeout;
+
 $(document).ready(function() {
 	$(document).keyup(function(event){
         if(event.keyCode == 71){
-
+		window.clearTimeout(timeout);
         	if(paused)
         		paused = false;
         	else{
@@ -86,9 +115,9 @@ $(document).ready(function() {
 		        if(!bypass){
 
             		if(options.length == 0){ // act when reaching the end of the branch
-	            		parent = $('body');
+				parent = $('body');
             			options = filterOptions($(parent).children());
-            			//setTimeout(function(){zoom.out()}, 100);
+				//setTimeout(function(){zoom.out()}, 100);
 					}else{
 						// set new parent
             			parent = options[prevIndex];
@@ -102,15 +131,19 @@ $(document).ready(function() {
             			//zoom.to({element: parent});
             			options = filterOptions($(parent).children());
             		}
+			if(options.length == 0){	
+				timeout = setTimeout(function(){upLevel(1);}, 3000);
+			}
 
             	}
-
 				// reset cycling to first option
             	index = 0;
+		prevIndex = 0;
 
             	bypass = false;
-
+		
         	}
+
         }
     });
 	setInterval(function(){cycleContent()}, USER_SPEED);
@@ -178,7 +211,6 @@ function isOption(option){
 				return true;
 	}
 }
-
 
 /*!
  * zoom.js 0.2
