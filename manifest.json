@@ -14,7 +14,7 @@
   ],
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*", "file://*/*", "<all_urls>", "chrome-extension://*/*"],
+      "matches": ["http://*/*", "https://*/*", "file://*/*", "<all_urls>"],
       "css": ["style.css"],
       "js": ["jquery-1.11.0.min.js", "content.js"]
     }
