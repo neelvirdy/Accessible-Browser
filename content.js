@@ -11,8 +11,10 @@ var sidebar_html = ['<div class="symba" id="symba-navigation">',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/home.png" alt="Home" id="symba-home-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/back.png" alt="Back" id="symba-back-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/forward.png" alt="Forward" id="symba-forward-button" class="symba" height="32" width="32"></li>',
+		'<li class="symba"><input type="image" src="' + extension_url + 'images/refresh.png" alt="Refresh" id="symba-refresh-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/new-tab.png" alt="New Tab" id="symba-new-tab-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/pause.png" alt="Pause" id="symba-pause-button" class="symba" height="32" width="32"></li>',
+		'<li class="symba"><input type="image" src="' + extension_url + 'images/leave.png" alt="Leave" id="symba-leave-button" class="symba" height="32" width="32"></li>',
 	'</ul>',
 '</div>'].join('\n');
 
