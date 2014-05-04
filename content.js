@@ -58,6 +58,10 @@ $('#symba-forward-button').click(function(event){
 	window.history.forward();
 });
 
+$('#symba-refresh-button').click(function(event){
+	location.reload(true);
+});
+
 $('#symba-new-tab-button').click(function(event){
 	window.open("https://www.google.com", '_newtab');
 });
