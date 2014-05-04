@@ -1,66 +1,65 @@
 .parent {
-	-webkit-box-shadow: 0 0 20px rgb(20, 250, 20), inset 0 0 30px rgb(20, 250, 20);
-	-moz-box-shadow: 0 0 20px rgb(20, 250, 20), inset 0 0 30px rgb(20, 250, 20);
-	box-shadow: 0 0 20px rgb(20, 250, 20), inset 0 0 30px rgb(20, 250, 20);
-	
+	-webkit-box-shadow: 0 0 20px rgb(20, 250, 20), inset 0 0 30px rgb(20, 250, 20) !important;
+	-moz-box-shadow: 0 0 20px rgb(20, 250, 20), inset 0 0 30px rgb(20, 250, 20) !important;
+	box-shadow: 0 0 20px rgb(20, 250, 20), inset 0 0 30px rgb(20, 250, 20) !important;
 }
 
 .parent td {
-	background-color:rgba(20, 250, 20, 0.2);
+	background-color:rgba(20, 250, 20, 0.2) !important;
 }
 
 .selected {
-	z-webkit-box-shadow: 0 0 30px orange, inset 0 0 30px orange;
-	-moz-box-shadow: 0 0 30px orange, inset 0 0 30px orange;
-	box-shadow: 0 0 30px orange, inset 0 0 30px orange;
-	background-color:rgba(255, 245, 0, 0.1);
+	z-webkit-box-shadow: 0 0 30px orange, inset 0 0 30px orange !important;
+	-moz-box-shadow: 0 0 30px orange, inset 0 0 30px orange !important;
+	box-shadow: 0 0 30px orange, inset 0 0 30px orange !important;
+	background-color:rgba(255, 245, 0, 0.1) !important;
 }
 
 .selected td {
-	background-color:rgba(255, 245, 0, 0.2);
+	background-color:rgba(255, 245, 0, 0.2) !important;
 }
 
 .options {
-	-webkit-box-shadow: 0 0 25px blue, inset 0 0 30px blue;
-	-moz-box-shadow: 0 0 25px blue, inset 0 0 30px blue;
-	box-shadow: 0 0 25px blue, inset 0 0 30px blue;
+	-webkit-box-shadow: 0 0 25px blue, inset 0 0 30px blue !important;
+	-moz-box-shadow: 0 0 25px blue, inset 0 0 30px blue !important;
+	box-shadow: 0 0 25px blue, inset 0 0 30px blue !important;
 }
 
 .options td {
-	background-color:rgba(0, 0, 255, 0.2);
+	background-color:rgba(0, 0, 255, 0.2) !important;
 }
 
 #symba-navigation li{
-	list-style: none;
-	padding:8px 0px;
-	width:34px;
-	height:34px;
-	margin:0;
-	background:none;
-	border: none;
+	list-style: none !important;
+	padding:0px 0px !important;
+	width:34px !important;
+	height:34px !important;
+	margin:8px 0px !important;
+	background:none !important;
+	border: none !important;
 }
 
 #symba-navigation li input{
-	width:32px;
-	height:32px;
-	padding:0px 0px;
-	margin:1px 1px;
-	background: none;
-	border: none;
+	width:32px !important;
+	height:32px !important;
+	padding:0px 0px !important;
+	margin:1px 1px !important;
+	background: none !important;
+	border: none !important;
 }
 
 #symba-navigation {
-	background-color: rgba(233,106,78,0.8);
-	width: 68px;
-	border-bottom-right-radius: 15px;
-	border-top-right-radius: 15px;
-	vertical-align: top;
-	margin-top: 60px;
-	position: fixed;
-	z-index:100000000;
+	background-color: rgba(233,106,78,0.8) !important;
+	width: 68px !important;
+	border-bottom-right-radius: 15px !important;
+	border-top-right-radius: 15px !important;
+	vertical-align: top !important;
+	margin-top: 60px !important;
+	position: fixed !important;
+	z-index:100000000 !important;
 }
 
 #symba-navigation ul{
-	margin:0;
-	padding: 10px 15px;
+	margin:0 !important;
+	padding: 10px 15px !important;
 }
