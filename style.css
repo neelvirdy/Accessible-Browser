@@ -1,7 +1,7 @@
 .parent {
-	-webkit-box-shadow: 0 0 20px rgb(20, 250, 20), inset 0 0 30px rgb(20, 250, 20) !important;
-	-moz-box-shadow: 0 0 20px rgb(20, 250, 20), inset 0 0 30px rgb(20, 250, 20) !important;
-	box-shadow: 0 0 20px rgb(20, 250, 20), inset 0 0 30px rgb(20, 250, 20) !important;
+	-webkit-box-shadow: 0 0 20px rgb(20, 250, 20), inset 0 0 30px rgb(20, 250, 20);
+	-moz-box-shadow: 0 0 20px rgb(20, 250, 20), inset 0 0 30px rgb(20, 250, 20);
+	box-shadow: 0 0 20px rgb(20, 250, 20), inset 0 0 30px rgb(20, 250, 20);
 	
 }
 
@@ -10,9 +10,9 @@
 }
 
 .selected {
-	z-webkit-box-shadow: 0 0 30px orange, inset 0 0 30px orange !important;
-	-moz-box-shadow: 0 0 30px orange, inset 0 0 30px orange !important;
-	box-shadow: 0 0 30px orange, inset 0 0 30px orange !important;
+	z-webkit-box-shadow: 0 0 30px orange, inset 0 0 30px orange;
+	-moz-box-shadow: 0 0 30px orange, inset 0 0 30px orange;
+	box-shadow: 0 0 30px orange, inset 0 0 30px orange;
 	background-color:rgba(255, 245, 0, 0.1);
 }
 
@@ -21,9 +21,9 @@
 }
 
 .options {
-	-webkit-box-shadow: 0 0 25px blue, inset 0 0 30px blue !important;
-	-moz-box-shadow: 0 0 25px blue, inset 0 0 30px blue !important;
-	box-shadow: 0 0 25px blue, inset 0 0 30px blue !important;
+	-webkit-box-shadow: 0 0 25px blue, inset 0 0 30px blue;
+	-moz-box-shadow: 0 0 25px blue, inset 0 0 30px blue;
+	box-shadow: 0 0 25px blue, inset 0 0 30px blue;
 }
 
 .options td {
@@ -31,22 +31,22 @@
 }
 
 #symba-navigation li{
-	list-style: none !important;
-	padding:8px 0px !important;
-	width:34px !important;
-	height:34px !important;
-	margin:0 !important;
-	background:none !important;
-	border: none !important;
+	list-style: none;
+	padding:8px 0px;
+	width:34px;
+	height:34px;
+	margin:0;
+	background:none;
+	border: none;
 }
 
 #symba-navigation li input{
-	width:34px !important;
-	height:34px !important;
-	padding:0px 0px !important;
-	margin:1px 1px !important;
-	background: none !important;
-	border: none !important;
+	width:32px;
+	height:32px;
+	padding:0px 0px;
+	margin:1px 1px;
+	background: none;
+	border: none;
 }
 
 #symba-navigation {
@@ -61,6 +61,6 @@
 }
 
 #symba-navigation ul{
-	margin:0 !important;
-	padding: 10px 15px !important;
+	margin:0;
+	padding: 10px 15px;
 }

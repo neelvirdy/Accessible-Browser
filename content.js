@@ -1,6 +1,8 @@
 console.log("SYMba loaded.");
 
-var USER_SPEED = 1400;
+var USER_SPEED = 1200;
+var SCROLL_SPEED = 800;
+var TIMEOUT_SPEED = 3000;
 var OPTIONS_FILTER = ['HEADER', 'FOOTER', 'DIV', 'A', 'UL', 'LI', 'SECTION', 'TABLE', 'TR', 'TD', 'THEAD', 'TBODY', 'IMG', 'BUTTON', 'INPUT', 'P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
 var extension_url = chrome.extension.getURL('');
 var sidebar_html = ['<div class="symba" id="symba-navigation">',
@@ -22,11 +24,13 @@ var branch = [];
 var index = 0;
 var prevIndex = 0;
 var paused = false;
-var bypass = false;
+var cacheIndex = index;
+var cachePrev = prevIndex;
 
 $('#symba-up-button').click(function(event){
 	upLevel(4);
-	//zoom.out();
+	index = 0;
+	prevIndex = 0;
 });
 
 function upLevel(count){
@@ -38,10 +42,6 @@ function upLevel(count){
 	else
 		parent = $('body');
 	options = filterOptions($(parent).children());
-	console.log(options);
-	index = 0;
-	prevIndex = 0;
-//	bypass = true;
 }
 
 $('#symba-home-button').click(function(event){
@@ -61,6 +61,7 @@ $('#symba-new-tab-button').click(function(event){
 });
 
 $('#symba-pause-button').click(function(event){
+	$("#symba-navigation").hide();
 	paused = true;
 });
 
@@ -70,52 +71,43 @@ $(document).ready(function() {
 	$(document).keyup(function(event){
         if(event.keyCode == 71){
 		window.clearTimeout(timeout);
-        	if(paused)
+        	if(paused){
         		paused = false;
+        		$("#symba-navigation").show();
+        	}
         	else{
-
         		branch.push(parent);
         		console.log(branch);
 
         		elementType = $(parent).prop('tagName');
-				if(elementType == 'INPUT'){
+				if(elementType == 'INPUT')
 		           	$(parent).click();
-		        }
             	else if(elementType == 'A')
 		           	window.location.href = $(parent).attr("href");
-
-		        if(!bypass){
-
-            		if(options.length == 0){ // act when reaching the end of the branch
-				parent = $('body');
-            			options = filterOptions($(parent).children());
-				//setTimeout(function(){zoom.out()}, 100);
-					}else{
-						// set new parent
-            			parent = options[prevIndex];
-            			//zoom.to({element: options[prevIndex]});
-						// reset options array
-						options = filterOptions($(parent).children());
-					}
-
-            		while(options.length == 1 || options.length == 2 & $.inArray($('#symba-navigation'), options)){ // skip through cycles where there is only one option
-	            		parent = options[options.length - 1];
-            			//zoom.to({element: parent});
-            			options = filterOptions($(parent).children());
-            		}
-			if(options.length == 0){	
-				timeout = setTimeout(function(){upLevel(1);}, 3000);
-			}
-
+            	if(options.length == 0){ // act when reaching the end of the branch
+					parent = $('body');
+            		options = filterOptions($(parent).children());
+				}else{
+					// set new parent
+           			parent = options[prevIndex];
+					// reset options array
+					options = filterOptions($(parent).children());
+				}
+           		while(options.length == 1 || options.length == 2 & $.inArray($('#symba-navigation'), options)){ // skip through cycles where there is only one option
+            		parent = options[options.length - 1];
+           			options = filterOptions($(parent).children());
             	}
-				// reset cycling to first option
-            	index = 0;
-		prevIndex = 0;
 
-            	bypass = false;
-		
-        	}
+				if(options.length == 0){
+					cacheIndex = index;
+					cachePrev = prevIndex;
+					timeout = setTimeout(function(){upLevel(1); index = cacheIndex; prevIndex = cachePrev;}, TIMEOUT_SPEED);
+				}
 
+            }
+			// reset cycling to first option
+            index = 0;
+			prevIndex = 0;
         }
     });
 	setInterval(function(){cycleContent()}, USER_SPEED);
@@ -140,29 +132,27 @@ function cycleContent(){
 
 		console.log(options[index]);
 
+		if(!$(options[index]).hasClass('symba')){
+		
+			if(index == 0) {
+				$('body').animate({			
+        			scrollTop: $(parent).position().top
+    			}, SCROLL_SPEED * 0.8);
+			}
+
+			else {
+				$('body').animate({	
+        			scrollTop: $(options[index]).position().top 
+    			}, SCROLL_SPEED);
+			}
+			
+		}
+
 		prevIndex = index;
 		index++;
 
 		if(index == options.length) {
 			index = 0;
-		}
-
-		if(!$(options[prevIndex]).hasClass('symba')){
-		console.log("not symba");
-		
-			if(prevIndex == 0) {
-				$('body').animate({			
-        			scrollTop: $(parent).position().top
-    			}, 800);
-			}
-
-			else {
-				console.log($(options[index]).position().top);	
-				$('body').animate({	
-        			scrollTop: $(options[prevIndex]).position().top 
-    			}, 800);
-			}
-			
 		}
 	}
 }
