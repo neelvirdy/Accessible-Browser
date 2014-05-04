@@ -12,7 +12,6 @@
 	z-webkit-box-shadow: 0 0 30px orange, inset 0 0 30px orange !important;
 	-moz-box-shadow: 0 0 30px orange, inset 0 0 30px orange !important;
 	box-shadow: 0 0 30px orange, inset 0 0 30px orange !important;
-	background-color:rgba(255, 245, 0, 0.1) !important;
 }
 
 .selected td {
