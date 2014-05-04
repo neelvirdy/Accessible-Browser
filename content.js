@@ -11,6 +11,7 @@ var sidebar_html = ['<div class="symba" id="symba-navigation">',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/home.png" alt="Home" id="symba-home-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/back.png" alt="Back" id="symba-back-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/forward.png" alt="Forward" id="symba-forward-button" class="symba" height="32" width="32"></li>',
+		'<li class="symba"><input type="image" src="' + extension_url + 'images/refresh.png" alt="Refresh" id="symba-refresh-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/new-tab.png" alt="New Tab" id="symba-new-tab-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/switch-tab.png" alt="Switch Tab" id="symba-switch-tab-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/refresh.png" alt="Refresh" id="symba-refresh-button" class="symba" height="32" width="32"></li>',
@@ -57,6 +58,10 @@ $('#symba-back-button').click(function(event){
 
 $('#symba-forward-button').click(function(event){
 	window.history.forward();
+});
+
+$('#symba-refresh-button').click(function(event){
+	location.reload(true);
 });
 
 $('#symba-new-tab-button').click(function(event){
