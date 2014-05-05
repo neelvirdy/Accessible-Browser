@@ -1,3 +1,9 @@
+* {
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
 .parent {
 	-webkit-box-shadow: 0 0 20px rgb(20, 250, 20), inset 0 0 30px rgb(20, 250, 20) !important;
 	-moz-box-shadow: 0 0 20px rgb(20, 250, 20), inset 0 0 30px rgb(20, 250, 20) !important;
