@@ -8,6 +8,7 @@ var extension_url = chrome.extension.getURL('');
 var sidebar_html = ['<div class="symba" id="symba-navigation">',
 		    '<ul class="symba" id="symba-ul">',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/up-level.png" alt="Up" id="symba-up-button" class="symba" height="32" width="32"></li>',
+		'<li class="symba"><input type="image" src="' + extension_url + 'images/top-level.png" alt="Top" id="symba-top-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/home.png" alt="Home" id="symba-home-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/back.png" alt="Back" id="symba-back-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/forward.png" alt="Forward" id="symba-forward-button" class="symba" height="32" width="32"></li>',
@@ -35,10 +36,15 @@ $('#symba-up-button').click(function(event){
 	prevIndex = 0;
 });
 
+$('#symba-top-button').click(function(event){
+	upLevel(branch.length);
+	index = 0;
+	prevIndex = 0;
+});
+
 function upLevel(count){
-	for(var i = 0; i < count-1; i++){	
+	for(var i = 0; i < count-1; i++)
 		branch.pop();
-	}
 	if(branch.length > 0)
 		parent = branch.pop();
 	else
@@ -71,6 +77,12 @@ $('#symba-pause-button').click(function(event){
 	paused = true;
 });
 
+$('#symba-leave-button').click(function(event){
+	upLevel(3);
+	index = 0;
+	prevIndex = 0;
+});
+
 var timeout;
 
 $(document).ready(function() {
@@ -85,28 +97,41 @@ $(document).ready(function() {
         		branch.push(parent);
         		console.log(branch);
 
-        		elementType = $(parent).prop('tagName');
-				if(elementType == 'INPUT')
-		           	$(parent).click();
-            	else if(elementType == 'A')
-		           	window.location.href = $(parent).attr("href");
+        		var lastParent = parent;
+
             	if(options.length == 0){ // act when reaching the end of the branch
 					parent = $('body');
             		options = filterOptions($(parent).children());
 				}else{
 					// set new parent
            			parent = options[prevIndex];
+           			console.log("thisone");
 					// reset options array
 					options = filterOptions($(parent).children());
 				}
-           		while(options.length == 1 || options.length == 2 & $.inArray($('#symba-navigation'), options)){ // skip through cycles where there is only one option
+           		while(options.length == 1  && $.inArray($('#symba-navigation'), options) == -1 || options.length == 2 && $.inArray($('#symba-navigation'), options)){ // skip through cycles where there is only one option
             		parent = options[options.length - 1];
+            		console.log("blah");
            			options = filterOptions($(parent).children());
             	}
+            	if(options.length == 1 && $.inArray($('#symba-navigation'), options)){
+					parent = $('body');
+					console.log("agwgweg");
+					options = filterOptions($(parent).children());
+					index = 0;
+					prevIndex = 0;
+				}
+
+            	elementType = $(lastParent).prop('tagName');
+				if(elementType == 'INPUT')
+		           	$(lastParent).click();
+            	else if(elementType == 'A')
+		           	window.location.href = $(lastParent).attr("href");
 
 				if(options.length == 0){
 					cacheIndex = index;
 					cachePrev = prevIndex;
+					console.log("sdasdasdg");
 					timeout = setTimeout(function(){upLevel(1); index = cacheIndex; prevIndex = cachePrev;}, TIMEOUT_SPEED);
 				}
 
@@ -151,7 +176,6 @@ function cycleContent(){
         			scrollTop: $(options[index]).position().top 
     			}, SCROLL_SPEED);
 			}
-			
 		}
 
 		prevIndex = index;
