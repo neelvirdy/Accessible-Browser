@@ -123,7 +123,7 @@ $(document).ready(function() {
 				}
 
             	elementType = $(lastParent).prop('tagName');
-				if(elementType == 'INPUT')
+				if(elementType == 'INPUT' || elementType == 'BUTTON')
 		           	$(lastParent).click();
             	else if(elementType == 'A')
 		           	window.location.href = $(lastParent).attr("href");
