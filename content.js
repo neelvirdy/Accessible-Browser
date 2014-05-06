@@ -3,19 +3,19 @@ console.log("SYMba loaded.");
 var USER_SPEED = 1200;
 var SCROLL_SPEED = 800;
 var TIMEOUT_SPEED = 3000;
-var OPTIONS_FILTER = ['HEADER', 'FOOTER', 'DIV', 'A', 'UL', 'LI', 'SECTION', 'TABLE', 'TR', 'TD', 'THEAD', 'TBODY', 'IMG', 'BUTTON', 'INPUT', 'P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
+var OPTIONS_FILTER = ['HEADER', 'FOOTER', 'DIV', 'A', 'UL', 'LI', 'SECTION', 'TABLE', 'TR', 'TD', 'THEAD', 'TBODY', 'IMG', 'BUTTON', 'INPUT', 'P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'SPAN'];
 var extension_url = chrome.extension.getURL('');
 var sidebar_html = ['<div class="symba" id="symba-navigation">',
 		    '<ul class="symba" id="symba-ul">',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/up-level.png" alt="Up" id="symba-up-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/top-level.png" alt="Top" id="symba-top-button" class="symba" height="32" width="32"></li>',
+		'<li class="symba"><input type="image" src="' + extension_url + 'images/leave.png" alt="Leave" id="symba-leave-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/home.png" alt="Home" id="symba-home-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/back.png" alt="Back" id="symba-back-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/forward.png" alt="Forward" id="symba-forward-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/refresh.png" alt="Refresh" id="symba-refresh-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/new-tab.png" alt="New Tab" id="symba-new-tab-button" class="symba" height="32" width="32"></li>',
 		'<li class="symba"><input type="image" src="' + extension_url + 'images/pause.png" alt="Pause" id="symba-pause-button" class="symba" height="32" width="32"></li>',
-		'<li class="symba"><input type="image" src="' + extension_url + 'images/leave.png" alt="Leave" id="symba-leave-button" class="symba" height="32" width="32"></li>',
 	'</ul>',
 '</div>'].join('\n');
 
@@ -105,28 +105,27 @@ $(document).ready(function() {
 				}else{
 					// set new parent
            			parent = options[prevIndex];
-           			console.log("thisone");
 					// reset options array
 					options = filterOptions($(parent).children());
 				}
            		while(options.length == 1  && $.inArray($('#symba-navigation'), options) == -1 || options.length == 2 && $.inArray($('#symba-navigation'), options)){ // skip through cycles where there is only one option
             		parent = options[options.length - 1];
-            		console.log("blah");
            			options = filterOptions($(parent).children());
             	}
             	if(options.length == 1 && $.inArray($('#symba-navigation'), options)){
 					parent = $('body');
-					console.log("agwgweg");
 					options = filterOptions($(parent).children());
 					index = 0;
 					prevIndex = 0;
 				}
 
             	elementType = $(lastParent).prop('tagName');
-				if(elementType == 'INPUT' || elementType == 'BUTTON')
-		           	$(lastParent).click();
-            	else if(elementType == 'A')
+            	if(elementType == 'A'){
 		           	window.location.href = $(lastParent).attr("href");
+		           	$(lastParent).click();
+		        }
+		        else
+		           	$(lastParent).click();
 
 				if(options.length == 0){
 					cacheIndex = index;
